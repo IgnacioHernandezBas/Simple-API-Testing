@@ -1,9 +1,40 @@
+// Logica tabla
 let array=[];
 let arrayHeader=["|Nombre|","|Nº Piloto|","|Nacionalidad|","|F.Nacimiento|"];
 
+let table = document.createElement('table');
+const pilotosDiv = document.querySelector('#pilotos-2021');
+pilotosDiv.appendChild(table);
 
-let getPilotos= async ()=>{
-  let peticion= await fetch("https://ergast.com/api/f1/2021/drivers.json",{
+let titulo= document.getElementById("title");
+let h1 = document.createElement("h1");
+let textNode = document.createTextNode("Elija el año de la temporada que desee visualizar");
+
+h1.appendChild(textNode);
+titulo.appendChild(h1);
+
+
+
+let getUrl=async()=>
+{
+  pilotosDiv.removeChild(table);
+  h1.removeChild(textNode);
+  titulo.removeChild(h1);
+  let year= document.getElementById("searchbar").value
+  console.log(year);
+  let url='https://ergast.com/api/f1/'+year+'/drivers.json';
+ 
+  textNode = document.createTextNode("Listado de pilotos temporada "+year);
+  h1.appendChild(textNode);
+  titulo.appendChild(h1); 
+  console.log(url);
+  getPilotos(url);
+}
+
+
+
+let getPilotos= async (url)=>{
+  let peticion= await fetch(url,{
     method:"GET"
 
   });
@@ -13,10 +44,11 @@ let getPilotos= async ()=>{
     let tablaPilotos= datos.MRData.DriverTable.Drivers;
    // console.log(datos);
     console.log(tablaPilotos);
-    const pilotosDiv = document.querySelector('#pilotos-2021');
-    let table = document.createElement('table');
+
+       table = document.createElement('table');
     let tableBody=document.createElement('tbody');
     let header = document.createElement('tr');
+    
     for(let h in arrayHeader)
     {
       console.log(arrayHeader[h]);
@@ -39,11 +71,12 @@ let getPilotos= async ()=>{
         tableBody.appendChild(fila);
     }
     table.appendChild(tableBody);
-    pilotosDiv.appendChild(table);
   }
-  
+  pilotosDiv.appendChild(table);
 }
-getPilotos();
 
-console.log(array);
+elementBoton=document.getElementById('buscar');
+
+elementBoton.addEventListener("click", getUrl);
+
 
