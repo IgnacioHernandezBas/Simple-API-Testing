@@ -4,8 +4,8 @@ let arrayHeader=["|N-Escudería|","|Nacionalidad|","|Link|"];
 let getConstructors= async ()=>{
   let peticion= await fetch("http://ergast.com/api/f1/2021/constructors.json",{
     method:"GET"
-
-  });
+ 
+ });
   if (peticion.status=200)
    {
     let datos= await peticion.json();
