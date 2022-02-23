@@ -3,7 +3,7 @@ let arrayHeader=["|Nombre|","|Nº Piloto|","|Nacionalidad|","|F.Nacimiento|"];
 
 
 let getPilotos= async ()=>{
-  let peticion= await fetch("http://ergast.com/api/f1/2021/drivers.json",{
+  let peticion= await fetch("https://ergast.com/api/f1/2021/drivers.json",{
     method:"GET"
 
   });
